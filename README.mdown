@@ -17,7 +17,27 @@ by Jesse Collis
 
 ## Usage
 
-* TODO;
+JCLocalizedString defines new macros to replace NSLocalizedString with the same API
+
+    JCLocalizedString((NSString *)key, (NSString *)description)
+    JCLocalizedStringFromTable((NSString *)key, (NSString *)tbl, (NSString *)comment)
+    JCLocalizedStringFromTableInBundle((NSString *)key, (NSString *)tbl, (NSString *)bundle, (NSString *)comment)
+    JCLocalizedStringWithDefaultValue((NSString *)key, (NSString *)tbl, (NSString *)bundle, (NSString *)val, (NSString *)comment)
+
+Changing the bundle at run time will generate a global notification named `JCLocalisedStringActivteLocalizationChangedNotification`
+
+Define a custom bundle in info.plsit
+
+Set the `JCLocalizationBundle` key in info.plist to the name of your custom butotn.
+
+
+Using `genstrings` with JCLocalizedString
+
+* use the custom class thing
+
+## Upcomming changes
+
+* enforce my own things
 
 ### Licence
 
