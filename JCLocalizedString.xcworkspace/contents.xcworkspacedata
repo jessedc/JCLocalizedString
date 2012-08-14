@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:LICENCE.txt">
+   </FileRef>
+   <FileRef
+      location = "group:README.mdown">
+   </FileRef>
+   <Group
+      location = "container:JCLocallizedString"
+      name = "JCLocallizedString">
+      <FileRef
+         location = "group:JCLocalizedString.h">
+      </FileRef>
+      <FileRef
+         location = "group:JCLocalizedString.m">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:Bundle Localisations/Bundle Localisations.xcodeproj">
+   </FileRef>
+</Workspace>

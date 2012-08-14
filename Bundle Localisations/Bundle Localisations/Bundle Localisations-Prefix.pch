@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'Bundle Localizations' target in the 'Bundle Localizations' project
+// Prefix header for all source files of the 'Bundle Localisations' target in the 'Bundle Localisations' project
 //
 
 #import <Availability.h>
@@ -11,5 +11,4 @@
 #ifdef __OBJC__
   #import <UIKit/UIKit.h>
   #import <Foundation/Foundation.h>
-  #import "JCLocalizedString.h"
 #endif

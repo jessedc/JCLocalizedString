@@ -1,8 +1,8 @@
 //
 //  main.m
-//  Bundle Localizations
+//  Bundle Localisations
 //
-//  Created by Jesse Collis on 31/07/12.
+//  Created by Jesse Collis on 14/08/12.
 //  Copyright (c) 2012 JCMultimedia Design. All rights reserved.
 //
 

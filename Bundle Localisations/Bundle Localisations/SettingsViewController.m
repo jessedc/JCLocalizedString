@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import "JCLocalizedString.h"
 
 @interface SettingsViewController ()
 @property (nonatomic, strong) NSBundle *bundle;
