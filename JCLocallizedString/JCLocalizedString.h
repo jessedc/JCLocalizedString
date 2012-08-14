@@ -43,7 +43,7 @@
 
 #define kJCLocalizedStringMainBundleInfoPlistKey @"JCLocalizationBundle"
 #define kJCLocalizedStringDefaultTableName @"Localizable"
-#define kJCLocalisedStringActivteLocalizationChangedNotification @"kJCLocalisedStringActivteLocalizationChangedNotification"
+#define kJCLocalisedStringActivteLocalizationChangedNotification @"JCLocalisedStringActivteLocalizationChangedNotification"
 
 // TODO: consider integrating auto updating locale
 
