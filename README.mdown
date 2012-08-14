@@ -7,7 +7,13 @@ by Jesse Collis
 
 ## Overview
 
-* TODO;
+  The standard NSLocalizedString() macros provided in UIBundle.h are bound to the system's language very early in your app's lifecycle. If you have an app that may require it's own internal run time language selection JCLocalizedString may suit your requirements.
+  
+  I'm very passionate about doing things well; I recently did a presentation at [Melbourne Cocoaheads][4] how to use NSLocalizedString to make localising your app much much easier.
+  
+  Check the [JCLocalizedPreso][5] notes here on [github][5] while the video is being edited.
+
+  JCLocalizedString is in very early stages so comments and pull requests are appreciated!
 
 ## Usage
 
@@ -43,3 +49,4 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 [2]: http://jcmultimedia.com.au/ "JC Multimedia Design"
 [3]: http://twitter.com/sirjec/ "@sirjec on Twitter"
 [4]: http://www.melbournecocoaheads.com/ "Melbourne Cocoaheads"
+[5]: https://github.com/jessedc/JCLocalizedStringPreso/ "LocalizedString Presentation, Melbourne Cocoaheads, August 2012"
