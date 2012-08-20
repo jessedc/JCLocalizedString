@@ -50,8 +50,12 @@
 + (NSBundle *)localizationBundle
 {
   NSString *bundleName = [[NSBundle mainBundle] objectForInfoDictionaryKey:kJCLocalizedStringMainBundleInfoPlistKey];
-  NSString *bundlePath = [[NSBundle mainBundle] pathForResource:bundleName ofType:@"bundle"];
-  NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+  NSBundle *bundle = nil;
+  if (bundleName)
+  {
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:bundleName ofType:@"bundle"]; //wtf this returns anything of type bundle with nil path
+    bundle = [NSBundle bundleWithPath:bundlePath];
+  }
 
   return bundle ?: [NSBundle mainBundle];
 }
