@@ -7,9 +7,9 @@ by Jesse Collis
 
 ## Overview
 
-  The standard NSLocalizedString() macros provided in UIBundle.h are bound to the system's language very early in your app's lifecycle. If you have an app that may require it's own internal run time language selection JCLocalizedString may suit your requirements.
+  The standard `NSLocalizedString` macros provided in `UIBundle.h` are bound to your application's language very early in your app's lifecycle. You may have an app that would benefic from it's own internal run time language selection. `JCLocalizedString` aims to provide the same default behaviour as and compatibility as `NSLocalizedStirng` while adding additional features like runtime language selection and custom bundles.
   
-  I'm very passionate about doing things well; I recently did a presentation at [Melbourne Cocoaheads][4] how to use NSLocalizedString to make localising your app much much easier.
+  I'm very passionate about doing this localisation thing well; I recently did a presentation at [Melbourne Cocoaheads][4] on how I think you should use `NSLocalizedString` to make localising your app much much easier.
   
   Check the [JCLocalizedPreso][5] notes here on [github][5] while the video is being edited.
 
