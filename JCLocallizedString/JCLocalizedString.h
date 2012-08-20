@@ -59,9 +59,10 @@
 
 + (NSBundle *)localizationBundle;
 
+- (NSArray *)preferredLanguages;
+
 - (id)initWithLocalizationBundle:(NSBundle *)localizationBundle;
 - (id)initWithLocalizationBundle:(NSBundle *)localizationBundle activeLocalization:(NSString *)localization;
-
 
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName;
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName bundle:(NSBundle *)bundle;
