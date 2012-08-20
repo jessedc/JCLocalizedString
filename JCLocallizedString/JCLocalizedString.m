@@ -216,7 +216,7 @@
 
 @implementation NSBundle (JCLocalizedManager)
 
-- (NSString *)JCLocalizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName;
+- (NSString *)JCLocalizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName
 {
   return [[JCLocalizedManager sharedManager] localizedStringForKey:key value:value table:tableName bundle:self];
 }
