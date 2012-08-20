@@ -175,13 +175,14 @@
   NSDictionary *cachedDictionary = [_tableCache objectForKey:stringsFilePath];
   if (cachedDictionary) return cachedDictionary;
 
-  NSString *stringsFile = [NSString stringWithContentsOfFile:stringsFilePath encoding:NSUTF8StringEncoding error:nil];
-  //NOTE: Apple recommends using NSPropertyList.h
-  NSDictionary *stringsDictionary = [stringsFile propertyListFromStringsFileFormat];
+  NSError *error = nil;
+  id plist = [NSPropertyListSerialization propertyListWithData:[NSData dataWithContentsOfFile:stringsFilePath] options:NSPropertyListImmutable format:nil error:&error];
 
-  [_tableCache setObject:stringsDictionary forKey:stringsFilePath];
+  NSAssert(error == nil, [error description]);
 
-  return stringsDictionary;
+  [_tableCache setObject:plist forKey:stringsFilePath];
+
+  return (NSDictionary *)plist;
 }
 
 - (NSString *)defaultLocalizationForBundle:(NSBundle *)localizationBundle
