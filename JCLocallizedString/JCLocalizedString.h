@@ -45,6 +45,9 @@
 #define kJCLocalizedStringDefaultTableName @"Localizable"
 #define kJCLocalisedStringActivteLocalizationChangedNotification @"JCLocalisedStringActivteLocalizationChangedNotification"
 
+#define JCLocalizedPNGPath(filename) \
+[[JClocalizedManager sharedManager] localizedResource:(filename) ofType:@"png"];
+
 // TODO: consider integrating auto updating locale
 
 @interface JCLocalizedManager : NSObject <NSCacheDelegate>{
@@ -67,7 +70,7 @@
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName;
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName bundle:(NSBundle *)bundle;
 
-- (NSDictionary *)loadStringsTable:(NSString *)tableName localization:(NSString *)localization bundle:(NSBundle *)bundle;
+- (NSString *)localizedResource:(NSString *)resource ofType:(NSString *)type;
 
 @end
 

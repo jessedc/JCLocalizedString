@@ -194,6 +194,13 @@
   return key;
 }
 
+- (NSString *)localizedResource:(NSString *)resource ofType:(NSString *)type
+{
+  return [self.localizationBundle pathForResource:resource ofType:type inDirectory:nil forLocalization:self.activeLocalization];
+}
+
+#pragma mark - Internal
+
 - (NSDictionary *)loadStringsTable:(NSString *)tableName localization:(NSString *)localization bundle:(NSBundle *)bundle
 {
   tableName = tableName ?: kJCLocalizedStringDefaultTableName;
