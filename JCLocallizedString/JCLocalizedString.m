@@ -108,33 +108,9 @@
 #endif
 }
 
-- (NSArray *)preferredLanguages
+- (NSArray *)preferredLocalizations
 {
-  NSArray *localeLanguages = [NSLocale preferredLanguages];
-  NSArray *myLanguages = [[self localizationBundle] localizations];
-  NSMutableArray *myPreferredLanguages = [NSMutableArray arrayWithCapacity:[myLanguages count]];
-
-  for (NSString *language in localeLanguages)
-  {
-    if ([myLanguages containsObject:localeLanguages])
-    {
-      [myPreferredLanguages addObject:language];
-    }
-  }
-
-  //Add the remainder of myLanguages
-  NSUInteger i = 0;
-  while (i < [myLanguages count] || [myPreferredLanguages count] < [myLanguages count] )
-  {
-    NSString *language = [myLanguages objectAtIndex:i];
-    if (![myPreferredLanguages containsObject:language])
-    {
-      [myPreferredLanguages addObject:language];
-    }
-    i++;
-  }
-
-  return [NSArray arrayWithArray:myPreferredLanguages];
+  return [[self localizationBundle] preferredLocalizations];
 }
 
 - (void)setActiveLocalization:(NSString *)activeLocalization

@@ -62,7 +62,7 @@
 
 + (NSBundle *)localizationBundle;
 
-- (NSArray *)preferredLanguages;
+- (NSArray *)preferredLocalizations;
 
 - (id)initWithLocalizationBundle:(NSBundle *)localizationBundle;
 - (id)initWithLocalizationBundle:(NSBundle *)localizationBundle activeLocalization:(NSString *)localization;
