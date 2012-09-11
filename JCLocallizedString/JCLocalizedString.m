@@ -219,8 +219,11 @@
     NSUInteger idx1 = [preferredLanguages indexOfObject:obj1];
     NSUInteger idx2 = [preferredLanguages indexOfObject:obj2];
 
-    if (idx1 > idx2 || [obj2 isEqualToString:localization]) return NSOrderedDescending;
-    if (idx1 < idx2 || [obj1 isEqualToString:localization]) return NSOrderedAscending;
+    if ([obj1 isEqualToString:localization]) return NSOrderedAscending;
+    if ([obj2 isEqualToString:localization]) return NSOrderedDescending;
+
+    if (idx1 > idx2) return NSOrderedDescending;
+    if (idx1 < idx2) return NSOrderedAscending;
     return NSOrderedSame;
   }];
 
