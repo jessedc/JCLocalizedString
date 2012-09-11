@@ -50,7 +50,7 @@
 
 // TODO: consider integrating auto updating locale
 
-@interface JCLocalizedManager : NSObject <NSCacheDelegate>{
+@interface JCLocalizedManager : NSObject {
   @private
   NSCache *_tableCache;
 }

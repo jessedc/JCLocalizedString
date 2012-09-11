@@ -92,7 +92,6 @@
 #endif
     self.activeLocalization = activeLocalization;
     _tableCache = [[NSCache alloc] init];
-    _tableCache.delegate = self;
     _tableCache.name = @"JCLocallizedString strings table cache";
   }
 
@@ -245,9 +244,11 @@
   return nil;
 }
 
-#pragma mark - NSCacheDelegate
+- (NSString *)restoreSavedLocalisation
+{
+}
 
-- (void)cache:(NSCache *)cache willEvictObject:(id)obj
+- (void)storeLocalisattion:(NSString *)localisation
 {
 }
 
