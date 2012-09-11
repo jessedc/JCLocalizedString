@@ -112,22 +112,11 @@
 {
   if (nil == _preferredLocalizations)
   {
-    NSArray *preferredLanguages = [NSLocale preferredLanguages];
-    NSArray *bundleLanguages = [self.localizationBundle localizations];
-
-    _preferredLocalizations = [bundleLanguages sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-      NSUInteger idx1 = [preferredLanguages indexOfObject:obj1];
-      NSUInteger idx2 = [preferredLanguages indexOfObject:obj2];
-
-      if (idx1 > idx2 || [obj2 isEqualToString:self.activeLocalization]) return NSOrderedDescending;
-      if (idx1 < idx2 || [obj1 isEqualToString:self.activeLocalization]) return NSOrderedAscending;
-      return NSOrderedSame;
-    }];
+    _preferredLocalizations = [self preferredLocalizations:self.localizationBundle activeLocalization:self.activeLocalization];
 #if !__has_feature(objc_arc)
     [_preferredLocalizations retain];
 #endif
   }
-
   return _preferredLocalizations;
 }
 
@@ -152,17 +141,20 @@
     id old = _activeLocalization;
     _activeLocalization = [activeLocalization retain];
     [old release];
+
     [_preferredLocalizations release];
     _preferredLocalizations = nil;
 #endif
 
-    [[NSUserDefaults standardUserDefaults] setObject:_activeLocalization forKey:kJCLocalizedStringStandardUserDefaultsStoredLocalizationKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:_activeLocalization,@"activeLocalization",nil];
+    [self storeLocalisattion:_activeLocalization];
+
+    NSString *activeLocalisationCopy = [_activeLocalization copy];
     [[NSNotificationCenter defaultCenter] postNotificationName:kJCLocalisedStringActivteLocalizationChangedNotification
                                                         object:self
-                                                      userInfo:userInfo];
+                                                      userInfo:@{@"activeLocalization" : activeLocalisationCopy}];
+#if !__has_feature(objc_arc)
+    [activeLocalisationCopy release];
+#endif
   }
 }
 
@@ -218,38 +210,53 @@
   return (NSDictionary *)plist;
 }
 
+- (NSArray *)preferredLocalizations:(NSBundle *)localizationBundle activeLocalization:(NSString *)localization
+{
+  NSArray *preferredLanguages = [NSLocale preferredLanguages];
+  NSArray *bundleLanguages = [localizationBundle localizations];
+
+  return [bundleLanguages sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    NSUInteger idx1 = [preferredLanguages indexOfObject:obj1];
+    NSUInteger idx2 = [preferredLanguages indexOfObject:obj2];
+
+    if (idx1 > idx2 || [obj2 isEqualToString:localization]) return NSOrderedDescending;
+    if (idx1 < idx2 || [obj1 isEqualToString:localization]) return NSOrderedAscending;
+    return NSOrderedSame;
+  }];
+
+}
+
 - (NSString *)defaultLocalizationForBundle:(NSBundle *)localizationBundle
 {
-  //FIXME: similar logic to preferredLanguages
-  NSString *storedLocalization = [[NSUserDefaults standardUserDefaults] objectForKey:kJCLocalizedStringStandardUserDefaultsStoredLocalizationKey];
-
+  NSString *storedLocalization = [self restoreSavedLocalisation];
   if (storedLocalization) return storedLocalization;
 
-  NSArray *preferredLanguages = [NSLocale preferredLanguages];
-  NSArray *bundleLocalizations = [localizationBundle localizations];
+  NSArray *preferredLocalizations = [self preferredLocalizations:localizationBundle activeLocalization:nil];
 
-  for (NSString *IETF_BCP_47_identifier in preferredLanguages)
+  if ([preferredLocalizations count] > 0)
   {
-    if ([bundleLocalizations containsObject:IETF_BCP_47_identifier])
-    {
-      return IETF_BCP_47_identifier;
-    }
+    return [preferredLocalizations objectAtIndex:0];
   }
-
-  if ([bundleLocalizations count] > 0)
-  {
-    return [bundleLocalizations objectAtIndex:0];
-  }
-
   return nil;
 }
 
 - (NSString *)restoreSavedLocalisation
 {
+  NSDictionary *storedLocalization = [[NSUserDefaults standardUserDefaults] objectForKey:kJCLocalizedStringStandardUserDefaultsStoredLocalizationKey];
+  return [storedLocalization objectForKey:[self.localizationBundle bundlePath]];
 }
 
 - (void)storeLocalisattion:(NSString *)localisation
 {
+  NSString *localisationCopy = [localisation copy];
+  NSDictionary *storedLocalization = @{[self.localizationBundle bundlePath] : localisationCopy};
+
+#if !__has_feature(objc_arc)
+  [localisationCopy  release];
+#endif
+
+  [[NSUserDefaults standardUserDefaults] setObject:storedLocalization forKey:kJCLocalizedStringStandardUserDefaultsStoredLocalizationKey];
+  [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

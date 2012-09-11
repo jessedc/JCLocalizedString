@@ -49,6 +49,7 @@
 [[JClocalizedManager sharedManager] localizedResource:(filename) ofType:@"png"];
 
 // TODO: consider integrating auto updating locale
+// FIXME: what to do when the app's language changes?
 
 @interface JCLocalizedManager : NSObject {
   @private
