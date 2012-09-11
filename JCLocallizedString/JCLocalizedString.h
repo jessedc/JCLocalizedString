@@ -57,12 +57,11 @@
 
 @property (nonatomic, readonly, strong) NSBundle *localizationBundle;
 @property (nonatomic, strong) NSString *activeLocalization;
+@property (nonatomic, readonly, strong) NSArray *preferredLocalizations;
 
 + (JCLocalizedManager *)sharedManager;
 
 + (NSBundle *)localizationBundle;
-
-- (NSArray *)preferredLocalizations;
 
 - (id)initWithLocalizationBundle:(NSBundle *)localizationBundle;
 - (id)initWithLocalizationBundle:(NSBundle *)localizationBundle activeLocalization:(NSString *)localization;

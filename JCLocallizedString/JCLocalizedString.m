@@ -34,6 +34,7 @@
 @implementation JCLocalizedManager
 @synthesize localizationBundle = _localizationBundle;
 @synthesize activeLocalization = _activeLocalization;
+@synthesize preferredLocalizations = _preferredLocalizations;
 
 + (JCLocalizedManager *)sharedManager
 {
@@ -110,7 +111,25 @@
 
 - (NSArray *)preferredLocalizations
 {
-  return [[self localizationBundle] preferredLocalizations];
+  if (nil == _preferredLocalizations)
+  {
+    NSArray *preferredLanguages = [NSLocale preferredLanguages];
+    NSArray *bundleLanguages = [self.localizationBundle localizations];
+
+    _preferredLocalizations = [bundleLanguages sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+      NSUInteger idx1 = [preferredLanguages indexOfObject:obj1];
+      NSUInteger idx2 = [preferredLanguages indexOfObject:obj2];
+
+      if (idx1 > idx2 || [obj2 isEqualToString:self.activeLocalization]) return NSOrderedDescending;
+      if (idx1 < idx2 || [obj1 isEqualToString:self.activeLocalization]) return NSOrderedAscending;
+      return NSOrderedSame;
+    }];
+#if !__has_feature(objc_arc)
+    [_preferredLocalizations retain];
+#endif
+  }
+
+  return _preferredLocalizations;
 }
 
 - (void)setActiveLocalization:(NSString *)activeLocalization
@@ -129,12 +148,15 @@
   {
 #if __has_feature(objc_arc)
     _activeLocalization = activeLocalization;
+    _preferredLocalizations = nil;
 #else
     id old = _activeLocalization;
     _activeLocalization = [activeLocalization retain];
     [old release];
+    [_preferredLocalizations release];
+    _preferredLocalizations = nil;
 #endif
-    
+
     [[NSUserDefaults standardUserDefaults] setObject:_activeLocalization forKey:kJCLocalizedStringStandardUserDefaultsStoredLocalizationKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
